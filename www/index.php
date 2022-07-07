@@ -1,6 +1,6 @@
 <html>
  <head>
-  <title>Hello...</title>
+  <title>Hello World</title>
 
   <meta charset="utf-8"> 
 
@@ -12,22 +12,21 @@
 </head>
 <body>
     <div class="container">
-    <?php echo "<h1>Hi! I'm happy</h1>"; ?>
+    <?php echo "<h1>Hi :)</h1>"; ?>
 
     <?php
 
-    // Connexion et sélection de la base
+    // MySQL connection.
     $conn = mysqli_connect('db', 'user', 'test', "myDb");
-
-
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     $query = 'SELECT * From Person';
     $result = mysqli_query($conn, $query);
 
     echo '<table class="table table-striped">';
-    echo '<thead><tr><th></th><th>id</th><th>name</th></tr></thead>';
+    echo '<thead><tr><th>id</th><th>name</th></tr></thead>';
     while($value = $result->fetch_array(MYSQLI_ASSOC)){
-        echo '<tr>';
-        echo '<td><a href="#"><span class="glyphicon glyphicon-search"></span></a></td>';
         foreach($value as $element){
             echo '<td>' . $element . '</td>';
         }
@@ -36,9 +35,9 @@
     }
     echo '</table>';
 
-    /* Libération du jeu de résultats */
     $result->close();
 
+    // Close connection to database.
     mysqli_close($conn);
 
     ?>
